@@ -37,7 +37,7 @@ CREATE TABLE `hash_salts` (
 --
 
 INSERT INTO `accounts` (username, email) VALUES ('abc', 'abc@gmail.com');
-INSERT INTO `hash_salts` (hash_salt_account_id, hash, salt) VALUES (1, 'abcd', 'salty');
+INSERT INTO `hash_salts` (hash, salt) VALUES ('abcd', 'salty');
 
 
 
