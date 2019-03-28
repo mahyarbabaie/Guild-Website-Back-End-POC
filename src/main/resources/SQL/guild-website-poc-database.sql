@@ -21,7 +21,7 @@ CREATE TABLE `accounts` (
 
 DROP TABLE IF EXISTS `hash_salts`;
 CREATE TABLE `hash_salts` (
-                          `hash_salt_account_id` int(11)  NOT NULL AUTO_INCREMENT,
+                          `hash_salt_account_id` int(11)  NOT NULL,
                           `hash` varchar(128)             NOT NULL,
                           `salt` varchar(50)              NOT NULL,
                           PRIMARY KEY (`hash_salt_account_id`),
@@ -30,14 +30,8 @@ CREATE TABLE `hash_salts` (
                           REFERENCES `guild_website_poc_app`.`accounts`(`account_id`)
                           ON UPDATE CASCADE
                           ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Testing the tables above
---
-
-INSERT INTO `accounts` (username, email) VALUES ('abc', 'abc@gmail.com');
-INSERT INTO `hash_salts` (hash, salt) VALUES ('abcd', 'salty');
 
 
 
