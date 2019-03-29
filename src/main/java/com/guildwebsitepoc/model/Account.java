@@ -1,9 +1,12 @@
 package com.guildwebsitepoc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="accounts")
+@JsonIgnoreProperties(value = {"hashSalt"})
 public class Account {
 
     // variables for accounts
@@ -20,7 +23,7 @@ public class Account {
 
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="account_id")
-    private HashSalts hashSalts;
+    private HashSalt hashSalt;
 
     // no argument constructor
     public Account (){}
@@ -59,12 +62,12 @@ public class Account {
     }
 
     // hash_salt table
-    public HashSalts getHashSalts() {
-        return this.hashSalts;
+    public HashSalt getHashSalt() {
+        return this.hashSalt;
     }
 
-    public void setHashSalts(HashSalts hashSalts) {
-        this.hashSalts = hashSalts;
+    public void setHashSalt(HashSalt hashSalt) {
+        this.hashSalt = hashSalt;
     }
 
     // toString() method

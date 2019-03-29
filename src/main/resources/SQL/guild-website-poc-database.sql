@@ -16,7 +16,7 @@ CREATE TABLE `accounts` (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8;
 
 --
--- Table structure for table `hashSalts`
+-- Table structure for table `hashSalt`
 --
 
 DROP TABLE IF EXISTS `hash_salts`;

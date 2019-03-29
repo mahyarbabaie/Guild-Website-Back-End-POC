@@ -4,7 +4,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="hash_salts")
-public class HashSalts {
+public class HashSalt {
     @Id
     @Column(name="hash_salt_account_id")
     private int hashSaltAccountId;
@@ -16,10 +16,10 @@ public class HashSalts {
     private String salt;
 
     // no argument constructor
-    public HashSalts() {}
+    public HashSalt() {}
 
     // argument constructor for parent to pass in value
-    public HashSalts(int hashSaltAccountId, String hash, String salt) {
+    public HashSalt(int hashSaltAccountId, String hash, String salt) {
         this.hashSaltAccountId = hashSaltAccountId;
         this.hash = hash;
         this.salt = salt;
