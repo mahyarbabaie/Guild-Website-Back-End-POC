@@ -1,4 +1,4 @@
-package com.guildwebsitepoc.app;
+package com.guildwebsitepoc;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

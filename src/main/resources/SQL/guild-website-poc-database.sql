@@ -9,7 +9,7 @@ USE `guild_website_poc_app`;
 
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
-                       `account_id` int(11)        NOT NULL AUTO_INCREMENT,
+                       `account_id` int            NOT NULL AUTO_INCREMENT,
                        `username` varchar(50)      NOT NULL,
                        `email` varchar(50)         NOT NULL,
                        PRIMARY KEY (`account_id`)
@@ -21,7 +21,7 @@ CREATE TABLE `accounts` (
 
 DROP TABLE IF EXISTS `hash_salts`;
 CREATE TABLE `hash_salts` (
-                          `hash_salt_account_id` int(11)  NOT NULL,
+                          `hash_salt_account_id` int      NOT NULL,
                           `hash` varchar(128)             NOT NULL,
                           `salt` varchar(50)              NOT NULL,
                           PRIMARY KEY (`hash_salt_account_id`),
@@ -31,6 +31,10 @@ CREATE TABLE `hash_salts` (
                           ON UPDATE CASCADE
                           ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+INSERT INTO accounts (username, email) VALUES ('test', 'test@gmail.com');
+INSERT INTO hash_salts (hash_salt_account_id, hash, salt) VALUES (1, 'hash', 'salt');
 
 
 
