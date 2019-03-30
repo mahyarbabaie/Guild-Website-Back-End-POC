@@ -18,6 +18,9 @@ public interface AccountService {
     // DELETE
     void deleteById(int accountId);
 
-    // LOGIN Account
+    // GET username
     Account findByUsername(String username);
+
+    // Validate passowrd
+    boolean verifyPassword(String password, String salt, String expectedHash);
 }

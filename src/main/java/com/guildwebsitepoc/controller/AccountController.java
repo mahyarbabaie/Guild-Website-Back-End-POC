@@ -47,7 +47,15 @@ public class AccountController {
     // Post login with existing account
     @PostMapping("/login")
     public Account loginAccount(@RequestBody Account account) {
-        return accountService.findByUsername(account.getUsername());
+        Account expectedAccount = accountService.findByUsername(account.getUsername());
+        boolean passwordMatch = accountService.verifyPassword(account.getPasswordHash(),
+                                                              expectedAccount.getPasswordSalt(),
+                                                              expectedAccount.getPasswordHash());
+        if (!passwordMatch) {
+            throw new RuntimeException("Password does not match");
+        }
+
+        return expectedAccount;
     }
 
     // PUT an existing account's information

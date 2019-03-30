@@ -42,7 +42,7 @@ public class HashSaltManager {
         return null;
     }
 
-    public boolean passwordChecker(final String password, final String salt, final String expectedHash) {
+    public boolean passwordChecker(String password, String salt, String expectedHash) {
 
         try {
             // Combining Salt and Password

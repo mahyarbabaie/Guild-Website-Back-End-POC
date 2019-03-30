@@ -60,6 +60,14 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public Account findByUsername(String username) {
         Account account = accountRepository.findByUsername(username).get(0);
-        return account;
+        if (account != null) {
+            return account;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean verifyPassword(String password, String salt, String expectedHash) {
+        return hashSaltManager.passwordChecker(password, salt, expectedHash);
     }
 }

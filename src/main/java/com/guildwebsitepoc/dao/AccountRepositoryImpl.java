@@ -22,7 +22,7 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom {
         Query query = entityManager.createNativeQuery("SELECT * FROM guild_website_poc_app.accounts " +
                 "WHERE username = :user", Account.class);
         System.out.println("Username: " + username);
-        query.setParameter("user", "test");
+        query.setParameter("user", username);
         return query.getResultList();
     }
 }
