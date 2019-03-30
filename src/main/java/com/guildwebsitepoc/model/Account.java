@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="accounts")
-@JsonIgnoreProperties(value = {"hashSalt"})
+@JsonIgnoreProperties(value = {"passwordSalt", "passwordHash"}, allowSetters = true)
 public class Account {
 
     // variables for accounts
@@ -21,9 +21,11 @@ public class Account {
     @Column(name="email")
     private String email;
 
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name="account_id")
-    private HashSalt hashSalt;
+    @Column(name="password_salt")
+    private String passwordSalt;
+
+    @Column(name="password_hash")
+    private String passwordHash;
 
     // no argument constructor
     public Account (){}
@@ -61,16 +63,17 @@ public class Account {
         this.email = email;
     }
 
-    // hash_salt table
-    public HashSalt getHashSalt() {
-        return this.hashSalt;
-    }
+    // passwordSalt
+    public String getPasswordSalt() { return passwordSalt; }
 
-    public void setHashSalt(HashSalt hashSalt) {
-        this.hashSalt = hashSalt;
-    }
+    public void setPasswordSalt(String passwordSalt) { this.passwordSalt = passwordSalt; }
 
-    // toString() method
+    // passwordHash
+    public String getPasswordHash() { return passwordHash; }
+
+    public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
+
+    // excluding the hash and salts
     @Override
     public String toString() {
         return "Account{" +

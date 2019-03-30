@@ -2,7 +2,6 @@ package com.guildwebsitepoc.service;
 
 import com.guildwebsitepoc.dao.AccountRepository;
 import com.guildwebsitepoc.model.Account;
-import com.guildwebsitepoc.model.HashSalt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,13 +38,8 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void save(Account account) {
         // Grab the DB ID
-        Account dbAccount = accountRepository.save(account);
+//        Account dbAccount = accountRepository.save(account);
         // Generate Hash
-        HashSalt hashSalt = new HashSalt(dbAccount.getAccountId(),
-                                   "hash" + dbAccount.getAccountId(),
-                                    "salt" + dbAccount.getAccountId());
-        // Set Hash values to model
-        account.setHashSalt(hashSalt);
         // Save the new data with the hash
         accountRepository.save(account);
     }
