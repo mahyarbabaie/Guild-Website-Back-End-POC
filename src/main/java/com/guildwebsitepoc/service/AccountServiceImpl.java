@@ -2,6 +2,7 @@ package com.guildwebsitepoc.service;
 
 import com.guildwebsitepoc.dao.AccountRepository;
 import com.guildwebsitepoc.model.Account;
+import com.guildwebsitepoc.utility.HashSaltManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +14,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    private HashSaltManager hashSaltManager;
 
     @Override
     public List<Account> findAll() { return accountRepository.findAll(); }
@@ -34,14 +38,20 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
-    // TODO: Create Hashing and Salt utility class
     @Override
     public void save(Account account) {
-        // Grab the DB ID
-//        Account dbAccount = accountRepository.save(account);
-        // Generate Hash
-        // Save the new data with the hash
-        accountRepository.save(account);
+        if (account.getAccountId() == 0) {
+            // Generate Hash and Salt
+            final String salt = hashSaltManager.getSalt64();
+            final String hash = hashSaltManager.hashSHA3by512(account.getPasswordHash(), salt);
+            // Save the new data with the hash
+            account.setPasswordSalt(salt);
+            account.setPasswordHash(hash);
+            // save the account with its updated value
+            accountRepository.save(account);
+        } else {
+            accountRepository.save(account);
+        }
     }
 
     @Override
