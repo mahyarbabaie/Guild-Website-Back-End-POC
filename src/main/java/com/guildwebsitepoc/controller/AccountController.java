@@ -2,13 +2,14 @@ package com.guildwebsitepoc.controller;
 
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.service.AccountService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("${api.base.url}")
+@RequestMapping("${api.base.url}" + "/AccountsService")
 public class AccountController {
 
     @Autowired
@@ -32,7 +33,7 @@ public class AccountController {
     }
 
     // POST a new account
-    @PostMapping("/accounts")
+    @PostMapping("/register")
     public Account addAccount(@RequestBody Account account) {
         // if they pass an id, then set it to 0
         // This will insure a new account is created instead of update due to: "currentSession.saveOrUpdate()"
@@ -41,6 +42,12 @@ public class AccountController {
         accountService.save(account);
 
         return account;
+    }
+
+    // Post login with existing account
+    @PostMapping("/login")
+    public Account loginAccount(@RequestBody Account account) {
+        return accountService.findByUsername(account.getUsername());
     }
 
     // PUT an existing account's information

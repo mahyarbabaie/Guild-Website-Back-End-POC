@@ -9,7 +9,7 @@ USE `guild_website_poc_app`;
 DROP TABLE IF EXISTS `accounts`;
 CREATE TABLE `accounts` (
                        `account_id`    int           NOT NULL AUTO_INCREMENT,
-                       `username`      varchar(50)   NOT NULL,
+                       `username`      varchar(50)   NOT NULL UNIQUE,
                        `email`         varchar(50)   NOT NULL,
                        `password_salt` varchar(256)  NULL,
                        `password_hash` varchar(256)  NULL,
@@ -19,7 +19,14 @@ CREATE TABLE `accounts` (
 --
 -- Insert Test
 --
-INSERT INTO accounts (username, email, password_salt, password_hash) VALUES ('test', 'test@gmail.com', 'salty', 'hashy');
+INSERT INTO accounts (username,
+                      email,
+                      password_salt,
+                      password_hash)
+            VALUES ('test',
+                    'test@gmail.com',
+                    'A4P9fG5FNQzOyh0TkUTnpm5Em5h9n7wWtKUvyV2l0kwoFbRDX4oD64cOnH_M3xEvT2D-mdMqrU_Q2QLaXSCV_A',
+                    'wPUjuCi8o-Oy7FGiPr9jVCCpmgECVZsyvKsJeJYxaIAK72bnpjtfOZIVZSjtN7cJjPQR4VnMuslm2K-RlVjXSQ');
 
 
 

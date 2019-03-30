@@ -56,4 +56,10 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deleteById(int accountId) { accountRepository.deleteById(accountId); }
+
+    @Override
+    public Account findByUsername(String username) {
+        Account account = accountRepository.findByUsername(username).get(0);
+        return account;
+    }
 }
