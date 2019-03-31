@@ -15,12 +15,12 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
 
 
     public JwtAuthenticationTokenFilter() {
-        super("/${api.base.url}/**");
+        super("/guildwebsitepoc/api/**");
     }
 
     @Override
     public Authentication attemptAuthentication(HttpServletRequest httpServletRequest,
-                                                HttpServletResponse httpServletResponse) throws AuthenticationException, IOException, ServletException {
+                                                HttpServletResponse httpServletResponse) throws AuthenticationException {
 
         String header = httpServletRequest.getHeader("Authorization");
 
@@ -28,7 +28,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
             throw new RuntimeException("JWT Token is missing");
         }
 
-        String authenticatedToken = header.substring(6);
+        String authenticatedToken = header.substring(7);
 
         JwtAuthenticationToken jwtAuthenticationToken = new JwtAuthenticationToken(authenticatedToken);
         

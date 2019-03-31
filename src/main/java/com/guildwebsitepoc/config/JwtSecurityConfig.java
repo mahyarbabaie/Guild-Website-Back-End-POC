@@ -45,12 +45,20 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         return filter;
     }
 
+//    @Override
+//    public void configure(WebSecurity web) throws Exception {
+//        web.ignoring()
+//                .antMatchers("${api.base.url}" + "/AccountsService/login")
+//                .antMatchers("${api.base.url}" + "/AccountsService/register");
+//    }
+
     @Override
     public void configure(HttpSecurity http) throws Exception {
 
         http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/guildwebsitepoc/api/AccountsService/**").authenticated()
+                .antMatchers("${api.base.url}" + "/AccountsService/**").authenticated()
                 .and()
                 .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling().authenticationEntryPoint(entryPoint)
@@ -60,10 +68,5 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
         http.headers().cacheControl();
     }
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring()
-                .antMatchers(HttpMethod.POST, "/guildwebsitepoc/api/AccountsService/login")
-                .antMatchers(HttpMethod.POST, "/guildwebsitepoc/api/AccountsService/register");
-    }
+
 }
