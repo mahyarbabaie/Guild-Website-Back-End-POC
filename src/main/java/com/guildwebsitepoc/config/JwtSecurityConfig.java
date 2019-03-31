@@ -64,8 +64,6 @@ public class JwtSecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web.ignoring()
                 .antMatchers(HttpMethod.POST, "/guildwebsitepoc/api/AccountsService/login")
-                .antMatchers(HttpMethod.POST, "/guildwebsitepoc/api/AccountsService/register")
-                .antMatchers(HttpMethod.POST, "guildwebsitepoc/token");
-
+                .antMatchers(HttpMethod.POST, "/guildwebsitepoc/api/AccountsService/register");
     }
 }
