@@ -58,8 +58,13 @@ public class AccountController {
     }
 
     // PUT an existing account's information
-    @PutMapping("/accounts")
-    public Account updateAccount(@RequestBody Account account) {
+    @PutMapping("/accounts/{accountId}")
+    public Account updateAccount(@PathVariable int accountId,
+                                 @RequestBody Account account) {
+        Account initialAccount = accountService.findById(accountId);
+        if (initialAccount.getAccountId() != account.getAccountId()) {
+            throw new RuntimeException("AccountId does not match the desired account for updating");
+        }
         accountService.save(account);
 
         return account;
