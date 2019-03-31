@@ -3,6 +3,7 @@ package com.guildwebsitepoc.model;
 public class JwtUser {
 
     private String username;
+    private String password;
     private int id;
     private String role;
 
@@ -12,6 +13,14 @@ public class JwtUser {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public int getId() {

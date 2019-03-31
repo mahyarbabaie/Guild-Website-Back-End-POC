@@ -15,7 +15,7 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
 
 
     public JwtAuthenticationTokenFilter() {
-        super("/guildwebsitepoc/api/**");
+        super("/${api.base.url}/**");
     }
 
     @Override
