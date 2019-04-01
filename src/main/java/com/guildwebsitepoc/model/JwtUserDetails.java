@@ -1,5 +1,6 @@
 package com.guildwebsitepoc.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,11 +22,13 @@ public class JwtUserDetails implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return grantedAuthorities;
     }
 
     @Override
+    @JsonIgnore
     public String getPassword() {
         return null;
     }
@@ -75,6 +78,7 @@ public class JwtUserDetails implements UserDetails {
         this.id = id;
     }
 
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getGrantedAuthorities() {
         return grantedAuthorities;
     }
