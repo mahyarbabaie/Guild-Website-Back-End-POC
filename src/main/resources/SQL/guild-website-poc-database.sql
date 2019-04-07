@@ -23,7 +23,7 @@ INSERT INTO accounts (username,
                       email,
                       password_salt,
                       password_hash)
-            VALUES ('test',
+            VALUES ('test123',
                     'test@gmail.com',
                     'A4P9fG5FNQzOyh0TkUTnpm5Em5h9n7wWtKUvyV2l0kwoFbRDX4oD64cOnH_M3xEvT2D-mdMqrU_Q2QLaXSCV_A',
                     'wPUjuCi8o-Oy7FGiPr9jVCCpmgECVZsyvKsJeJYxaIAK72bnpjtfOZIVZSjtN7cJjPQR4VnMuslm2K-RlVjXSQ');

@@ -3,6 +3,7 @@ package com.guildwebsitepoc.service;
 import com.guildwebsitepoc.dao.AccountRepository;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.utility.HashSaltManager;
+import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,7 +41,11 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void save(Account account) {
-
+        List<Account> duplicateAccount = accountRepository.findByUsername(account.getUsername());
+        System.out.println(duplicateAccount);
+        if (!duplicateAccount.isEmpty()) {
+            throw new RuntimeException("Username already exists");
+        }
         if (account.getAccountId() == 0){
             // new account so lets do password magic
             account = hashSaltPassword(account);

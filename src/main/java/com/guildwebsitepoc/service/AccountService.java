@@ -23,4 +23,5 @@ public interface AccountService {
 
     // Validate passowrd
     boolean verifyPassword(String password, String salt, String expectedHash);
+
 }
