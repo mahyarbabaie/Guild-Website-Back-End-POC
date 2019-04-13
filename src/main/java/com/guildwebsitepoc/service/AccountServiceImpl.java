@@ -1,9 +1,10 @@
 package com.guildwebsitepoc.service;
 
 import com.guildwebsitepoc.dao.AccountRepository;
+import com.guildwebsitepoc.exception.AccountAlreadyExistsException;
+import com.guildwebsitepoc.exception.AccountNotFoundException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.utility.HashSaltManager;
-import jdk.jshell.spi.ExecutionControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -33,7 +34,7 @@ public class AccountServiceImpl implements AccountService {
             account = result.get();
         } else {
             // we didn't find the account
-            throw new RuntimeException("Did not find the account with the account id - " + accountId);
+            throw new AccountNotFoundException("Did not find the account with the account id: " + accountId);
         }
 
         return account;
@@ -44,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
         List<Account> duplicateAccount = accountRepository.findByUsername(account.getUsername());
         System.out.println(duplicateAccount);
         if (!duplicateAccount.isEmpty()) {
-            throw new RuntimeException("Username already exists");
+            throw new AccountAlreadyExistsException("Username already exists. Please use a different username.");
         }
         if (account.getAccountId() == 0){
             // new account so lets do password magic

@@ -1,6 +1,7 @@
 package com.guildwebsitepoc.controller;
 
 
+import com.guildwebsitepoc.exception.AccountPasswordMismatchException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.model.JwtUser;
 import com.guildwebsitepoc.model.JwtUserDetails;
@@ -43,7 +44,7 @@ public class AuthController {
                 expectedAccount.getPasswordSalt(),
                 expectedAccount.getPasswordHash());
         if (!passwordMatch) {
-            throw new RuntimeException("Password does not match");
+            throw new AccountPasswordMismatchException("Password does not match");
         }
 
         JwtUserDetails jwtUserDetails = new JwtUserDetails(expectedAccount.getUsername(),

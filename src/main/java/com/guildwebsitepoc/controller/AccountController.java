@@ -1,5 +1,6 @@
 package com.guildwebsitepoc.controller;
 
+import com.guildwebsitepoc.exception.AccountIdMismatchException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,9 +26,6 @@ public class AccountController {
     public Account getAccount(@PathVariable int accountId) {
         Account account = accountService.findById(accountId);
 
-        if (account == null) {
-            throw new RuntimeException("Account id not found - " + accountId);
-        }
         return account;
     }
 
@@ -39,7 +37,7 @@ public class AccountController {
                                  @RequestBody Account account) {
         Account initialAccount = accountService.findById(accountId);
         if (initialAccount.getAccountId() != account.getAccountId()) {
-            throw new RuntimeException("AccountId does not match the desired account for updating");
+            throw new AccountIdMismatchException("AccountId does not match the desired account for updating");
         }
         accountService.save(account);
 
@@ -51,10 +49,6 @@ public class AccountController {
     public String deleteAccount(@PathVariable int accountId) {
         // Grab the account
         Account account = accountService.findById(accountId);
-        // throw exception if account is null
-        if (account == null) {
-            throw new RuntimeException("Account id not found - " + accountId);
-        }
 
         accountService.deleteById(accountId);
 
