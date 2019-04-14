@@ -1,14 +1,14 @@
 package com.guildwebsitepoc.model;
 
-public class GenericErrorResponse {
+public class GenericResponse {
 
     private int status;
     private String message;
     private long timeStamp;
 
-    public GenericErrorResponse() {}
+    public GenericResponse() {}
 
-    public GenericErrorResponse(int status, String message, long timeStamp) {
+    public GenericResponse(int status, String message, long timeStamp) {
         this.status = status;
         this.message = message;
         this.timeStamp = timeStamp;
