@@ -76,11 +76,13 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public Account findByUsername(String username) {
-        Account account = accountRepository.findByUsername(username).get(0);
-        if (account != null) {
+        try {
+            Account account = accountRepository.findByUsername(username).get(0);
             return account;
+        } catch (Exception err) {
+            err.getStackTrace();
+            throw new AccountNotFoundException("Account does not exist");
         }
-        return null;
     }
 
     @Override
