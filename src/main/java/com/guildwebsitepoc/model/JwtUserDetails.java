@@ -10,15 +10,29 @@ import java.util.List;
 public class JwtUserDetails implements UserDetails {
 
     private String username;
-    private String token;
-    private int id;
+    private String accessToken;
+    private String role;
+    private long id;
     private Collection<? extends GrantedAuthority> grantedAuthorities;
+    private String issuedDate;
+    private String expiredDate;
 
-    public JwtUserDetails(String username, int id, String token, List<GrantedAuthority> grantedAuthorities) {
+    public JwtUserDetails(
+            String username,
+            long id,
+            String accessToken,
+            String role,
+            List<GrantedAuthority> grantedAuthorities,
+            String issuedDate,
+            String expiredDate) {
+
         this.username = username;
         this.id = id;
-        this.token = token;
+        this.accessToken = accessToken;
+        this.role = role;
         this.grantedAuthorities = grantedAuthorities;
+        this.issuedDate = issuedDate;
+        this.expiredDate = expiredDate;
     }
 
     @Override
@@ -39,9 +53,7 @@ public class JwtUserDetails implements UserDetails {
     }
 
     @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
+    public boolean isAccountNonExpired() { return true; }
 
     @Override
     public boolean isAccountNonLocked() {
@@ -58,19 +70,23 @@ public class JwtUserDetails implements UserDetails {
         return true;
     }
 
+    public String getRole() { return role;}
+
+    public void setRole(String role) { this.role = role; }
+
     public void setUsername(String username) {
         this.username = username;
     }
 
-    public String getToken() {
-        return token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -85,5 +101,21 @@ public class JwtUserDetails implements UserDetails {
 
     public void setGrantedAuthorities(Collection<? extends GrantedAuthority> grantedAuthorities) {
         this.grantedAuthorities = grantedAuthorities;
+    }
+
+    public String getIssuedDate() {
+        return issuedDate;
+    }
+
+    public void setIssuedDate(String issuedDate) {
+        this.issuedDate = issuedDate;
+    }
+
+    public String getExpiredDate() {
+        return expiredDate;
+    }
+
+    public void setExpiredDate(String expiredDate) {
+        this.expiredDate = expiredDate;
     }
 }

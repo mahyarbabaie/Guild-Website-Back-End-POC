@@ -6,6 +6,7 @@ import com.guildwebsitepoc.exception.AccountNotFoundException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.utility.HashSaltManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,9 @@ public class AccountServiceImpl implements AccountService {
 
     @Autowired
     private HashSaltManager hashSaltManager;
+
+    @Value("${spring.role.member}")
+    private String memberRole;
 
     @Override
     public List<Account> findAll() { return accountRepository.findAll(); }
@@ -50,6 +54,8 @@ public class AccountServiceImpl implements AccountService {
         if (account.getAccountId() == 0){
             // new account so lets do password magic
             account = hashSaltPassword(account);
+            // member is the default role upon account creation
+            account.setRole(memberRole);
         } else if (account.getAccountId() != -1){
             // if account exists then lets check if they wanted a password change
             Account originalAccount = findById(account.getAccountId());
@@ -78,6 +84,17 @@ public class AccountServiceImpl implements AccountService {
     public Account findByUsername(String username) {
         try {
             Account account = accountRepository.findByUsername(username).get(0);
+            return account;
+        } catch (Exception err) {
+            err.getStackTrace();
+            throw new AccountNotFoundException("Account does not exist");
+        }
+    }
+
+    @Override
+    public Account findByEmail(String email) {
+        try {
+            Account account = accountRepository.findByEmail(email).get(0);
             return account;
         } catch (Exception err) {
             err.getStackTrace();

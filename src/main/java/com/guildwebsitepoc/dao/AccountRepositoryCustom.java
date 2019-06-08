@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface AccountRepositoryCustom {
     List<Account> findByUsername(String username);
+    List<Account> findByEmail(String email);
 }

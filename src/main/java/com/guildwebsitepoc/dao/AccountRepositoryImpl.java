@@ -24,4 +24,13 @@ public class AccountRepositoryImpl implements AccountRepositoryCustom {
         query.setParameter("user", username);
         return query.getResultList();
     }
+
+    @Override
+    public List<Account> findByEmail(String email) {
+        Query query = entityManager.createNativeQuery("SELECT * FROM guild_website_poc_app.accounts " +
+                "WHERE email = :email", Account.class);
+        System.out.println("Email: " + email);
+        query.setParameter("email", email);
+        return query.getResultList();
+    }
 }

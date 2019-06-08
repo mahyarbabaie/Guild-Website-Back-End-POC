@@ -21,6 +21,9 @@ public interface AccountService {
     // GET username
     Account findByUsername(String username);
 
+    // GET email
+    Account findByEmail(String email);
+
     // Validate passowrd
     boolean verifyPassword(String password, String salt, String expectedHash);
 

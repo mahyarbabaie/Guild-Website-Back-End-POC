@@ -27,6 +27,9 @@ public class Account {
     @Column(name="password_hash")
     private String passwordHash;
 
+    @Column(name="role")
+    private String role;
+
     // no argument constructor
     public Account (){}
 
@@ -73,6 +76,14 @@ public class Account {
 
     public void setPasswordHash(String passwordHash) { this.passwordHash = passwordHash; }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     // excluding the hash and salts
     @Override
     public String toString() {
@@ -80,6 +91,9 @@ public class Account {
                 "accountId=" + accountId +
                 ", username='" + username + '\'' +
                 ", email='" + email + '\'' +
+                ", role='" + role + '\'' +
                 '}';
     }
+
+
 }
