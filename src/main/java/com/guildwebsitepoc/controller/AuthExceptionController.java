@@ -1,7 +1,8 @@
 package com.guildwebsitepoc.controller;
 
 import com.guildwebsitepoc.exception.JwtTokenExpiredException;
-import com.guildwebsitepoc.model.GenericResponse;
+import com.guildwebsitepoc.model.GenericErrorResponse;
+import com.guildwebsitepoc.utility.ErrorCodeConstants;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -11,12 +12,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class AuthExceptionController {
 
     @ExceptionHandler
-    public ResponseEntity<GenericResponse> handleException(JwtTokenExpiredException exception) {
+    public ResponseEntity<GenericErrorResponse> handleException(JwtTokenExpiredException exception) {
 
-        GenericResponse genericResponse = new GenericResponse(HttpStatus.UNAUTHORIZED.value(),
+        GenericErrorResponse genericErrorResponse = new GenericErrorResponse(
+                HttpStatus.UNAUTHORIZED.value(),
+                ErrorCodeConstants.AUTH_UNAUTHORIZED,
                 exception.getMessage(),
                 System.currentTimeMillis());
 
-        return new ResponseEntity<>(genericResponse, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(genericErrorResponse, HttpStatus.UNAUTHORIZED);
     }
 }

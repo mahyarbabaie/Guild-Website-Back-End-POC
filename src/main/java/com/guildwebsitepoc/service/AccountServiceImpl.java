@@ -1,7 +1,8 @@
 package com.guildwebsitepoc.service;
 
 import com.guildwebsitepoc.dao.AccountRepository;
-import com.guildwebsitepoc.exception.AccountAlreadyExistsException;
+import com.guildwebsitepoc.exception.AccountEmailAlreadyExistsException;
+import com.guildwebsitepoc.exception.AccountUsernameAlreadyExistsException;
 import com.guildwebsitepoc.exception.AccountNotFoundException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.utility.HashSaltManager;
@@ -46,11 +47,16 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void save(Account account) {
-        List<Account> duplicateAccount = accountRepository.findByUsername(account.getUsername());
-        System.out.println(duplicateAccount);
-        if (!duplicateAccount.isEmpty()) {
-            throw new AccountAlreadyExistsException("Username already exists. Please use a different username.");
+        List<Account> duplicateUsername = accountRepository.findByUsername(account.getUsername());
+        System.out.println(duplicateUsername);
+        if (!duplicateUsername.isEmpty()) {
+            throw new AccountUsernameAlreadyExistsException("Username already exists. Please use a different username.");
         }
+        List<Account> duplicateEmail = accountRepository.findByEmail(account.getEmail());
+        if (!duplicateEmail.isEmpty()) {
+            throw new AccountEmailAlreadyExistsException("Email already exists. Please use a different email.");
+        }
+
         if (account.getAccountId() == 0){
             // new account so lets do password magic
             account = hashSaltPassword(account);
