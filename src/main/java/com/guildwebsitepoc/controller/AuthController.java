@@ -9,7 +9,6 @@ import com.guildwebsitepoc.model.JwtUserDetails;
 import com.guildwebsitepoc.service.AccountService;
 import com.guildwebsitepoc.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/guildwebsitepoc/AuthService")
 public class AuthController {
-
-    @Value("spring.security.secret")
-    private String secret;
 
     @Autowired
     private AccountService accountService;
@@ -51,6 +47,7 @@ public class AuthController {
     @PostMapping("/login")
     public JwtUserDetails loginAccount(@RequestBody JwtUser jwtUser) {
         Account expectedAccount = accountService.findByEmail(jwtUser.getEmail());
+        System.out.println("\n Expected Account: " + expectedAccount);
         boolean passwordMatch = accountService.verifyPassword(jwtUser.getPassword(),
                 expectedAccount.getPasswordSalt(),
                 expectedAccount.getPasswordHash());
@@ -58,7 +55,7 @@ public class AuthController {
             throw new AccountPasswordMismatchException("Password does not match");
         }
 
-        return authService.createUserJwtToken(jwtUser);
+        return authService.createUserJwtToken(jwtUser, expectedAccount);
     }
 
     // utility api to generate new accessToken

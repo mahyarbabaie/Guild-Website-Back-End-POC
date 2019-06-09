@@ -23,9 +23,8 @@ public class AuthServiceImpl implements AuthService {
     private JwtValidator jwtValidator;
 
     @Override
-    public JwtUserDetails createUserJwtToken(JwtUser jwtUser) {
+    public JwtUserDetails createUserJwtToken(JwtUser jwtUser, Account expectedAccount) {
 
-        Account expectedAccount = accountService.findByEmail(jwtUser.getEmail());
         long randomGeneratedId = UUID.randomUUID().getMostSignificantBits() & Long.MAX_VALUE;
         // Grabs the issued and expired date
         String jwtAccessToken = jwtGenerator.generateAccessToken(jwtUser);
@@ -41,5 +40,12 @@ public class AuthServiceImpl implements AuthService {
                 jwtUserWithToken.getExpiredDate());
 
         return jwtUserDetails;
+    }
+
+    @Override
+    public JwtUserDetails createUserJwtToken(JwtUser jwtUser) {
+
+        Account expectedAccount = accountService.findByEmail(jwtUser.getEmail());
+        return createUserJwtToken(jwtUser, expectedAccount);
     }
 }
