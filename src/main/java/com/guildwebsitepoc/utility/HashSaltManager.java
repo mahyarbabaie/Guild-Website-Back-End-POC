@@ -30,7 +30,8 @@ public class HashSaltManager {
             // Combining Salt and Password
             final byte[] passwordBytes = password.getBytes("UTF-8");
             final byte[] saltBytes = salt.getBytes("UTF-8");
-            final byte[] all = ArrayUtils.addAll(passwordBytes, saltBytes);
+            // having salt added in the front to prevent rainbow attacks
+            final byte[] all = ArrayUtils.addAll(saltBytes, passwordBytes);
 
             // Utilizing SHA3-512
             SHA3.DigestSHA3 digestSHA3 = new SHA3.Digest512();
@@ -48,7 +49,7 @@ public class HashSaltManager {
             // Combining Salt and Password
             final byte[] passwordBytes = password.getBytes("UTF-8");
             final byte[] saltBytes = salt.getBytes("UTF-8");
-            final byte[] all = ArrayUtils.addAll(passwordBytes, saltBytes);
+            final byte[] all = ArrayUtils.addAll(saltBytes, passwordBytes);
 
             // Utilizing SHA3-512
             SHA3.DigestSHA3 digestSHA3 = new SHA3.Digest512();

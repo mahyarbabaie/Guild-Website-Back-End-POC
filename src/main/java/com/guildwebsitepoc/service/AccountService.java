@@ -6,25 +6,28 @@ import java.util.List;
 
 public interface AccountService {
 
-    // GET all
-    List<Account> findAll();
+    // This method returns all accounts
+    List<Account> getAccount();
 
-    // GET specific
-    Account findById(int accountId);
+    // This method returns a single account
+    Account getAccount(int accountId);
 
-    // CREATE and UPDATE
-    void save(Account account);
+    // This method inserts a new account
+    void addAccount(Account account);
 
-    // DELETE
-    void deleteById(int accountId);
+    // This method updates an existing account
+    void updateAccount(Account account);
 
-    // GET username
-    Account findByUsername(String username);
+    // This method deletes an existing account
+    void deleteAccount(int accountId);
 
-    // GET email
-    Account findByEmail(String email);
+    // This method finds an account by their username
+    Account findAccountByUsername(String username);
 
-    // Validate passowrd
+    // This method finds an account by their email
+    Account findAccountByEmail(String email);
+
+    // Validate password
     boolean verifyPassword(String password, String salt, String expectedHash);
 
 }

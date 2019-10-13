@@ -30,11 +30,8 @@ public class AuthController {
     // POST a new account
     @PostMapping("/register")
     public ResponseEntity<GenericResponse> addAccount(@RequestBody Account account) {
-        // if they pass an id, then set it to 0
-        // This will insure a new account is created instead of update due to: "currentSession.saveOrUpdate()"
-        account.setAccountId(0);
         // Create new account in database
-        accountService.save(account);
+        accountService.addAccount(account);
 
         GenericResponse accountCreationResponse = new GenericResponse(HttpStatus.OK.value(),
                                                              "Account Created Successfully",
@@ -46,7 +43,8 @@ public class AuthController {
     // Post login with existing account
     @PostMapping("/login")
     public JwtUserDetails loginAccount(@RequestBody JwtUser jwtUser) {
-        Account expectedAccount = accountService.findByEmail(jwtUser.getEmail());
+        Account expectedAccount = accountService.findAccountByEmail(jwtUser.getEmail());
+
         System.out.println("\n Expected Account: " + expectedAccount);
         boolean passwordMatch = accountService.verifyPassword(jwtUser.getPassword(),
                 expectedAccount.getPasswordSalt(),

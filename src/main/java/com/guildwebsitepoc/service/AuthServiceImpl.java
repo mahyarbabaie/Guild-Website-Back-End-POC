@@ -1,5 +1,6 @@
 package com.guildwebsitepoc.service;
 
+import com.guildwebsitepoc.exception.AccountNotFoundException;
 import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.model.JwtUser;
 import com.guildwebsitepoc.model.JwtUserDetails;
@@ -45,7 +46,7 @@ public class AuthServiceImpl implements AuthService {
     @Override
     public JwtUserDetails createUserJwtToken(JwtUser jwtUser) {
 
-        Account expectedAccount = accountService.findByEmail(jwtUser.getEmail());
+        Account expectedAccount = accountService.findAccountByEmail(jwtUser.getEmail());
         return createUserJwtToken(jwtUser, expectedAccount);
     }
 }

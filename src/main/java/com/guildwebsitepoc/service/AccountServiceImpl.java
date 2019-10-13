@@ -26,12 +26,12 @@ public class AccountServiceImpl implements AccountService {
     private String memberRole;
 
     @Override
-    public List<Account> findAll() { return accountRepository.findAll(); }
+    public List<Account> getAccount() { return accountRepository.getAccount(); }
 
     @Override
-    public Account findById(int accountId) {
+    public Account getAccount(int accountId) {
         // "Optional<T>" checks for nulls
-        Optional<Account> result = accountRepository.findById(accountId);
+        Optional<Account> result = Optional.ofNullable(accountRepository.getAccount(accountId));
         // Declaring an account;
         Account account = null;
 
@@ -46,50 +46,81 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void save(Account account) {
-        List<Account> duplicateUsername = accountRepository.findByUsername(account.getUsername());
+    public void addAccount(Account account) {
+        Account duplicateUsername = accountRepository.findAccountByUsername(account.getUsername());
         System.out.println(duplicateUsername);
-        if (!duplicateUsername.isEmpty()) {
+        if (duplicateUsername != null) {
             throw new AccountUsernameAlreadyExistsException("Username already exists. Please use a different username.");
         }
-        List<Account> duplicateEmail = accountRepository.findByEmail(account.getEmail());
-        if (!duplicateEmail.isEmpty()) {
+        Account duplicateEmail = accountRepository.findAccountByEmail(account.getEmail());
+        if (duplicateEmail != null) {
             throw new AccountEmailAlreadyExistsException("Email already exists. Please use a different email.");
         }
+        System.out.println("Going to generate salt and hash for the user");
+        // new account so lets do password magic
+        account = hashSaltPassword(account);
 
-        if (account.getAccountId() == 0){
-            // new account so lets do password magic
-            account = hashSaltPassword(account);
-            // member is the default role upon account creation
-            account.setRole(memberRole);
-        } else if (account.getAccountId() != -1){
-            // if account exists then lets check if they wanted a password change
-            Account originalAccount = findById(account.getAccountId());
-            // if password has been modified in the PUT then lets update the password
-            if (account.getPasswordHash() != null && !originalAccount.getPasswordHash().equals(account.getPasswordHash())) {
-                account = hashSaltPassword(account);
-            } else {
-                // lets keep the old password if they omit the values in the PUT. Prevent null values passed in to DB
-                if (account.getPasswordHash() == null) {
-                    account.setPasswordHash(originalAccount.getPasswordHash());
-                }
-                if (account.getPasswordSalt() == null) {
-                    account.setPasswordSalt(originalAccount.getPasswordSalt());
-                }
-            }
-        }
-        // save or update the account
-        accountRepository.save(account);
+        System.out.println("Going to be setting the role of member for the user");
+        // member is the default role upon account creation
+        account.setRole(memberRole);
+
+        System.out.println("Going to be inserting the account into the database");
+        // inserts the account
+        accountRepository.addAccount(account);
 
     }
 
     @Override
-    public void deleteById(int accountId) { accountRepository.deleteById(accountId); }
+    public void updateAccount(Account account) {
+        // if account exists then lets check if they wanted a password change
+        Account originalAccount = getAccount(account.getAccountId());
+        // if password has been modified in the PUT then lets update the password
+        if (account.getPasswordHash() != null && !originalAccount.getPasswordHash().equals(account.getPasswordHash())) {
+            account = hashSaltPassword(account);
+        } else {
+            // lets keep the old password if they omit the values in the PUT. Prevent null values passed in to DB
+            if (account.getPasswordHash() == null) {
+                account.setPasswordHash(originalAccount.getPasswordHash());
+            }
+            if (account.getPasswordSalt() == null) {
+                account.setPasswordSalt(originalAccount.getPasswordSalt());
+            }
+        }
+        // We do not want to require users to pass in their role to update their account
+        if (account.getRole() == null) {
+            account.setRole(originalAccount.getRole());
+        }
+
+        // updates the account
+        accountRepository.updateAccount(account);
+    }
+
 
     @Override
-    public Account findByUsername(String username) {
+    public void deleteAccount(int accountId) {
+        // "Optional<T>" checks for nulls
+        Optional<Account> result = Optional.ofNullable(accountRepository.getAccount(accountId));
+        // Declaring an account;
+        Account account = null;
+
+        if (result.isPresent()) {
+            account = result.get();
+        } else {
+            // we didn't find the account
+            throw new AccountNotFoundException("Did not find the account with the account id: " + accountId);
+        }
+
+        // Using the accountId from the account query instead of directly using the parameter to avoid potential errors
+        accountRepository.deleteAccount(account.getAccountId());
+    }
+
+    @Override
+    public Account findAccountByUsername(String username) {
         try {
-            Account account = accountRepository.findByUsername(username).get(0);
+            Account account = accountRepository.findAccountByUsername(username);
+            if (account == null) {
+                throw new AccountNotFoundException("Account does not exist");
+            }
             return account;
         } catch (Exception err) {
             err.getStackTrace();
@@ -98,9 +129,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account findByEmail(String email) {
+    public Account findAccountByEmail(String email) {
         try {
-            Account account = accountRepository.findByEmail(email).get(0);
+            Account account = accountRepository.findAccountByEmail(email);
+            if (account == null) {
+                throw new AccountNotFoundException("Account does not exist");
+            }
             return account;
         } catch (Exception err) {
             err.getStackTrace();

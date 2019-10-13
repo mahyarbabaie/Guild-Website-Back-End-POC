@@ -17,29 +17,27 @@ public class AccountController {
 
     // GET all accounts
     @GetMapping("/accounts")
-    public List<Account> findAll() {
-        return accountService.findAll();
+    public List<Account> getAccount() {
+        return accountService.getAccount();
     }
 
     // GET an account by accountId
     @GetMapping("/accounts/{accountId}")
     public Account getAccount(@PathVariable int accountId) {
-        Account account = accountService.findById(accountId);
+        Account account = accountService.getAccount(accountId);
 
         return account;
     }
-
-
 
     // PUT an existing account's information
     @PutMapping("/accounts/{accountId}")
     public Account updateAccount(@PathVariable int accountId,
                                  @RequestBody Account account) {
-        Account initialAccount = accountService.findById(accountId);
+        Account initialAccount = accountService.getAccount(accountId);
         if (initialAccount.getAccountId() != account.getAccountId()) {
             throw new AccountIdMismatchException("AccountId does not match the desired account for updating");
         }
-        accountService.save(account);
+        accountService.updateAccount(account);
 
         return account;
     }
@@ -48,9 +46,9 @@ public class AccountController {
     @DeleteMapping("/accounts/{accountId}")
     public String deleteAccount(@PathVariable int accountId) {
         // Grab the account
-        Account account = accountService.findById(accountId);
+        Account account = accountService.getAccount(accountId);
 
-        accountService.deleteById(accountId);
+        accountService.deleteAccount(accountId);
 
         return "Deleted account id - " + accountId;
     }

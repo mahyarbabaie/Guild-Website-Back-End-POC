@@ -24,7 +24,7 @@ public class JwtGenerator {
         claims.put("role", jwtUser.getRole());
 
         Calendar expirationTime = Calendar.getInstance();
-        expirationTime.add(Calendar.HOUR, Integer.valueOf(accessTokenJwtExpiration));
+        expirationTime.add(Calendar.HOUR, Integer.parseInt(accessTokenJwtExpiration));
 
         return Jwts.builder()
                 .setClaims(claims)

@@ -27,8 +27,8 @@ INSERT INTO accounts (username,
                       role)
             VALUES ('test121',
                     'test@gmail.com',
-                    '8iO-siq37V3icDn13GU6oBOVoNqgn2-ewrIpGBW8FkCbLvBb4grGwMGyLPrKg7LpjKqMVHcM0VX7hNwyUdJpsA',
-                    '1mBkNjKh8ddpCf4OiCBRDXNWHzsg2jYvYuCH7RrfHMt81YgVUC8AYDT2Lv4zwocBrPaf9cX-IuOCZS05Kuk5tA',
+                    'vB1Zj0cD8EnabOBJuU5TgGe8IaFNr_DUZH58NhcGF8f26F8eLgqOZsJZbhvEv8esdmx-bZmNreLdTWvIOYUCww',
+                    '5bpwFNg0VPIsMb8BhQfBWb3_vZxcLbQ8rG-gmtvtPNDGZzPFOUTdC40AhRI67V-A69IsXAWAbk-uY02Gqb6N2w',
                     'member');
 
 

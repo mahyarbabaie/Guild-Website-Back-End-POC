@@ -2,32 +2,20 @@ package com.guildwebsitepoc.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.*;
-
-@Entity
-@Table(name="accounts")
 @JsonIgnoreProperties(value = {"passwordSalt", "passwordHash"}, allowSetters = true)
 public class Account {
 
     // variables for accounts
-    @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    @Column(name="account_id")
     private int accountId;
 
-    @Column(name="username")
     private String username;
 
-    @Column(name="email")
     private String email;
 
-    @Column(name="password_salt")
     private String passwordSalt;
 
-    @Column(name="password_hash")
     private String passwordHash;
 
-    @Column(name="role")
     private String role;
 
     // no argument constructor
