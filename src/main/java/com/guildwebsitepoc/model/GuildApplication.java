@@ -2,6 +2,8 @@ package com.guildwebsitepoc.model;
 
 import com.guildwebsitepoc.utility.GuildApplicationConstants;
 
+import java.util.Date;
+
 public class GuildApplication {
 
     private String applicationId;
@@ -14,11 +16,13 @@ public class GuildApplication {
 
     private String characterClass;
 
-    private String spec;
+    private String characterSpec;
 
     private String realm;
 
     private String raidPreference;
+
+    private String raidExperience;
 
     private String heroicRaidPreference;
 
@@ -46,7 +50,7 @@ public class GuildApplication {
 
     private Integer applicationStatus;
 
-    private String applicationDate;
+    private Date applicationDate;
 
     public GuildApplication() {}
 
@@ -55,9 +59,10 @@ public class GuildApplication {
                             String battleTag,
                             String characterName,
                             String characterClass,
-                            String spec,
+                            String characterSpec,
                             String realm,
                             String raidPreference,
+                            String raidExperience,
                             String heroicRaidPreference,
                             String mythicRaidPreference,
                             String casualPreference,
@@ -70,16 +75,17 @@ public class GuildApplication {
                             String worldPvpPreference,
                             String pvpGoals,
                             String aboutYourself,
-                            GuildApplicationConstants.ApplicationStatus applicationStatus,
-                            String applicationDate) {
+                            Integer applicationStatus,
+                            Date applicationDate) {
         this.applicationId = applicationId;
         this.email = email;
         this.battleTag = battleTag;
         this.characterName = characterName;
         this.characterClass = characterClass;
-        this.spec = spec;
+        this.characterSpec = characterSpec;
         this.realm = realm;
         this.raidPreference = raidPreference;
+        this.raidExperience = raidExperience;
         this.heroicRaidPreference = heroicRaidPreference;
         this.mythicRaidPreference = mythicRaidPreference;
         this.casualPreference = casualPreference;
@@ -92,15 +98,16 @@ public class GuildApplication {
         this.worldPvpPreference = worldPvpPreference;
         this.pvpGoals = pvpGoals;
         this.aboutYourself = aboutYourself;
-        this.applicationStatus = applicationStatus.getValue();
+        this.applicationStatus = applicationStatus;
         this.applicationDate = applicationDate;
     }
 
-
+    // UUID PK
     public String getApplicationId() { return applicationId; }
 
     public void setApplicationId(String applicationId) { this.applicationId = applicationId; }
 
+    // Contact Info
     public String getEmail() { return email; }
 
     public void setEmail(String email) { this.email = email; }
@@ -109,6 +116,7 @@ public class GuildApplication {
 
     public void setBattleTag(String battleTag) { this.battleTag = battleTag; }
 
+    // Character Details
     public String getCharacterName() { return characterName; }
 
     public void setCharacterName(String characterName) { this.characterName = characterName; }
@@ -117,17 +125,22 @@ public class GuildApplication {
 
     public void setCharacterClass(String characterClass) { this.characterClass = characterClass; }
 
-    public String getSpec() { return spec; }
+    public String getCharacterSpec() { return characterSpec; }
 
-    public void setSpec(String spec) { this.spec = spec; }
+    public void setCharacterSpec(String characterSpec) { this.characterSpec = characterSpec; }
 
     public String getRealm() { return realm; }
 
     public void setRealm(String realm) { this.realm = realm; }
 
+    // Raiding Details
     public String getRaidPreference() { return raidPreference; }
 
     public void setRaidPreference(String raidPreference) { this.raidPreference = raidPreference; }
+
+    public String getRaidExperience() { return raidExperience; }
+
+    public void setRaidExperience(String raidExperience) { this.raidExperience = raidExperience; }
 
     public String getHeroicRaidPreference() { return heroicRaidPreference; }
 
@@ -137,6 +150,7 @@ public class GuildApplication {
 
     public void setMythicRaidPreference(String mythicRaidPreference) { this.mythicRaidPreference = mythicRaidPreference; }
 
+    // Casual Details
     public String getCasualPreference() { return casualPreference; }
 
     public void setCasualPreference(String casualPreference) { this.casualPreference = casualPreference; }
@@ -145,6 +159,7 @@ public class GuildApplication {
 
     public void setCasualActivities(String casualActivities) { this.casualActivities = casualActivities; }
 
+    // Mythic Plus Details
     public String getMythicPlusPreference() { return mythicPlusPreference; }
 
     public void setMythicPlusPreference(String mythicPlusPreference) { this.mythicPlusPreference = mythicPlusPreference; }
@@ -153,6 +168,7 @@ public class GuildApplication {
 
     public void setMythicPlusGoals(String mythicPlusGoals) { this.mythicPlusGoals = mythicPlusGoals; }
 
+    // PVP Details
     public String getPvpPreference() { return pvpPreference; }
 
     public void setPvpPreference(String pvpPreference) { this.pvpPreference = pvpPreference; }
@@ -173,17 +189,20 @@ public class GuildApplication {
 
     public void setPvpGoals(String pvpGoals) { this.pvpGoals = pvpGoals; }
 
+    // About Yourself
     public String getAboutYourself() { return aboutYourself; }
 
     public void setAboutYourself(String aboutYourself) { this.aboutYourself = aboutYourself; }
 
+    // Application Status
     public Integer getApplicationStatus() { return applicationStatus; }
 
-    public void setApplicationStatus(GuildApplicationConstants.ApplicationStatus applicationStatus) { this.applicationStatus = applicationStatus.getValue(); }
+    public void setApplicationStatus(Integer applicationStatus) { this.applicationStatus = applicationStatus; }
 
-    public String getApplicationDate() { return applicationDate; }
+    // Application Date
+    public Date getApplicationDate() { return applicationDate; }
 
-    public void setApplicationDate(String applicationDate) { this.applicationDate = applicationDate; }
+    public void setApplicationDate(Date applicationDate) { this.applicationDate = applicationDate; }
 
     @Override
     public String toString() {
@@ -193,9 +212,10 @@ public class GuildApplication {
                 ", battleTag='" + battleTag + '\'' +
                 ", characterName='" + characterName + '\'' +
                 ", characterClass='" + characterClass + '\'' +
-                ", spec='" + spec + '\'' +
+                ", characterSpec='" + characterSpec + '\'' +
                 ", realm='" + realm + '\'' +
                 ", raidPreference='" + raidPreference + '\'' +
+                ", raidExperience='" + raidExperience + '\'' +
                 ", heroicRaidPreference='" + heroicRaidPreference + '\'' +
                 ", mythicRaidPreference='" + mythicRaidPreference + '\'' +
                 ", casualPreference='" + casualPreference + '\'' +
