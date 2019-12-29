@@ -49,18 +49,68 @@ CREATE TABLE `guild_application` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Insert Test
+-- Insert Account Test
 --
 INSERT INTO accounts (username,
                       email,
                       password_salt,
                       password_hash,
                       role)
-            VALUES ('test121',
-                    'test@gmail.com',
-                    'vB1Zj0cD8EnabOBJuU5TgGe8IaFNr_DUZH58NhcGF8f26F8eLgqOZsJZbhvEv8esdmx-bZmNreLdTWvIOYUCww',
-                    '5bpwFNg0VPIsMb8BhQfBWb3_vZxcLbQ8rG-gmtvtPNDGZzPFOUTdC40AhRI67V-A69IsXAWAbk-uY02Gqb6N2w',
-                    'member');
+VALUES ('test121',
+        'test@gmail.com',
+        'vB1Zj0cD8EnabOBJuU5TgGe8IaFNr_DUZH58NhcGF8f26F8eLgqOZsJZbhvEv8esdmx-bZmNreLdTWvIOYUCww',
+        '5bpwFNg0VPIsMb8BhQfBWb3_vZxcLbQ8rG-gmtvtPNDGZzPFOUTdC40AhRI67V-A69IsXAWAbk-uY02Gqb6N2w',
+        'member');
+
+--
+-- Insert Guild Application Test
+--
+INSERT INTO guild_application (application_id,
+                               email,
+                               battle_tag,
+                               character_name,
+                               class,
+                               spec,
+                               realm,
+                               raid_preference,
+                               raid_experience,
+                               heroic_raid_preference,
+                               mythic_raid_preference,
+                               casual_preference,
+                               casual_activities,
+                               mythic_plus_preference,
+                               mythic_plus_goals,
+                               pvp_preference,
+                               arena_preference,
+                               battlegrounds_preference,
+                               world_pvp_preference,
+                               pvp_goals,
+                               about_yourself,
+                               application_status,
+                               application_date)
+VALUES ('UUID',
+       'test@gmail.com',
+       'bob#12345',
+       'tester',
+       'rogue',
+       'assassination',
+       'proudmoore',
+       'true',
+       'mythic experience',
+       'true',
+       'true',
+       'false',
+       null,
+       'true',
+       'push high keys',
+       'true',
+       'true',
+       'true',
+       'false',
+       'get 2000 rating',
+       'I am cool',
+       'Pending',
+       '2019-12-29');
 
 
 
