@@ -26,7 +26,7 @@ CREATE TABLE `guild_application` (
                                      `email`                    VARCHAR(50)  NOT NULL,
                                      `battle_tag`               VARCHAR(50)  NOT NULL,
                                      `character_name`           VARCHAR(256) NOT NULL,
-                                     `class`                    VARCHAR(50)  NOT NULL,
+                                     `character_class`          VARCHAR(50)  NOT NULL,
                                      `spec`                     VARCHAR(50)  NOT NULL,
                                      `realm`                    VARCHAR(100) NOT NULL,
                                      `raid_preference`          VARCHAR(256) NULL,
@@ -43,7 +43,7 @@ CREATE TABLE `guild_application` (
                                      `world_pvp_preference`     VARCHAR(256) NULL,
                                      `pvp_goals`                VARCHAR(256) NULL,
                                      `about_yourself`           VARCHAR(256) NULL,
-                                     `application_status`       VARCHAR(256) NOT NULL,
+                                     `application_status`       INT NOT NULL,
                                      `application_date`         DATE NOT NULL,
                                      PRIMARY KEY (`application_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -69,7 +69,7 @@ INSERT INTO guild_application (application_id,
                                email,
                                battle_tag,
                                character_name,
-                               class,
+                               character_class,
                                spec,
                                realm,
                                raid_preference,
@@ -109,7 +109,7 @@ VALUES ('UUID',
        'false',
        'get 2000 rating',
        'I am cool',
-       'Pending',
+       1,
        '2019-12-29');
 
 
