@@ -1,9 +1,7 @@
 package com.guildwebsitepoc.dao;
 
-import com.guildwebsitepoc.model.Account;
 import com.guildwebsitepoc.model.GuildApplication;
 import com.guildwebsitepoc.utility.GuildApplicationConstants;
-import com.guildwebsitepoc.utility.mapper.AccountMapper;
 import com.guildwebsitepoc.utility.mapper.GuildApplicationMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -128,6 +126,21 @@ public class GuildApplicationRepositoryImpl implements GuildApplicationRepositor
                 guildApplication.getAboutYourself(),
                 guildApplication.getApplicationStatus(),
                 guildApplication.getApplicationDate());
+
+        return guildApplication;
+    }
+
+    @Override
+    public GuildApplication updateGuildApplication(GuildApplication guildApplication) {
+        // application status is only included because we only want to update the status of the application
+        String sql = "UPDATE " +
+                guildApplicationTable +
+                " SET application_status=? WHERE application_id=?";
+
+        jdbcTemplate.update(
+                sql,
+                guildApplication.getApplicationStatus(),
+                guildApplication.getApplicationId());
 
         return guildApplication;
     }

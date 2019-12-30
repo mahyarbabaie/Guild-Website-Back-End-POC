@@ -1,10 +1,10 @@
-package com.guildwebsitepoc.dao;
+package com.guildwebsitepoc.service;
 
 import com.guildwebsitepoc.model.GuildApplication;
 
 import java.util.List;
 
-public interface GuildApplicationRepository {
+public interface GuildApplicationService {
 
     // Return all PENDING applications
     List<GuildApplication> getPendingGuildApplication();
