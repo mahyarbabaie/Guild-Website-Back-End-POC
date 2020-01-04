@@ -15,40 +15,57 @@ public class GuildApplicationServiceImpl implements GuildApplicationService {
 
     @Override
     public List<GuildApplication> getPendingGuildApplication() {
-        List<GuildApplication> pendingGuildApplicationList = guildApplicationRepository.getPendingGuildApplication();
-
-        return pendingGuildApplicationList;
+        return guildApplicationRepository.getPendingGuildApplication();
     }
 
     @Override
     public List<GuildApplication> getDeclinedGuildApplication() {
-        List<GuildApplication> declinedGuildApplicationList = guildApplicationRepository.getDeclinedGuildApplication();
-
-        return declinedGuildApplicationList;
+        return guildApplicationRepository.getDeclinedGuildApplication();
     }
 
     @Override
     public List<GuildApplication> getAcceptedGuildApplication() {
-        return null;
+        return guildApplicationRepository.getAcceptedGuildApplication();
     }
 
     @Override
     public GuildApplication getGuildApplication(String applicationId) {
-        return null;
+        if (applicationId == null){
+            // TODO throw an error regarding invalid applicationId
+        }
+
+        GuildApplication guildApplication = guildApplicationRepository.getGuildApplication(applicationId);
+
+        if (guildApplication == null) {
+            // TODO throw an error regarding guild application not found
+        }
+        return guildApplication;
     }
 
+    // TODO make this request idempotent
     @Override
     public GuildApplication addGuildApplication(GuildApplication guildApplication) {
-        return null;
+        // TODO checks here on the guildApplication object
+        return guildApplicationRepository.addGuildApplication(guildApplication);
     }
 
     @Override
     public GuildApplication updateGuildApplication(GuildApplication guildApplication) {
-        return null;
+        // TODO checks here on guildApplication object
+        return guildApplicationRepository.updateGuildApplication(guildApplication);
     }
 
     @Override
     public void deleteGuildApplication(String applicationId) {
+        if (applicationId == null) {
+            // TODO throw an error regarding invalid applicationId
+        }
+
+        if (guildApplicationRepository.getGuildApplication(applicationId) == null){
+            // TODO throw an error regarding guild application not found
+        }
+
+        guildApplicationRepository.deleteGuildApplication(applicationId);
 
     }
 }

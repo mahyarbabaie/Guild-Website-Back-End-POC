@@ -70,7 +70,6 @@ public class GuildApplicationRepositoryImpl implements GuildApplicationRepositor
         }
     }
 
-    // TODO make this idempotent
     @Override
     public GuildApplication addGuildApplication(GuildApplication guildApplication) {
         String sql = "INSERT INTO " +

@@ -47,8 +47,7 @@ public class AccountController {
     public String deleteAccount(@PathVariable int accountId) {
         // Grab the account
         Account account = accountService.getAccount(accountId);
-
-        accountService.deleteAccount(accountId);
+        accountService.deleteAccount(account.getAccountId());
 
         return "Deleted account id - " + accountId;
     }
